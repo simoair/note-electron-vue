@@ -1,0 +1,30 @@
+@import 'mixins.less';
+
+@color1: #333333;
+@color2: #292929;
+@color3: #222222;
+@color4: #66cccc;
+@color5: #ffffff;
+@color6: #bbbbbb;
+@color7: #ebebeb;
+
+.bk ( @class, @data ) {
+    .@{class}{
+        background: @data;
+    }
+}
+.color ( @class, @data ) {
+    .@{class}{
+        color: @data;
+    }
+}
+.theme-dark {
+    .bk( theme-shallow, @color1 );
+    .bk( theme-normal, @color2 );
+    .bk( theme-deep, @color3 );
+}
+.theme-light {
+    .bk( theme-shallow, @color5 );
+    .bk( theme-normal, @color7 );
+    .bk( theme-deep, @color5 );
+}
