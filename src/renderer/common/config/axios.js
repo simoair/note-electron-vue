@@ -73,6 +73,26 @@ export function post (url, params) {
         reject(err, 0)
       })
   })
+}// 发送请求
+export function put (url, params) {
+  return new Promise((resolve, reject) => {
+    axios
+      .put(url, params)
+      .then(
+        res => {
+          resolve(res.data)
+        },
+        err => {
+          // reject(err.data)
+
+          reject(err, 0)
+        }
+      )
+      .catch(err => {
+        // reject(err.data)
+        reject(err, 0)
+      })
+  })
 }
 export function get (url, params) {
   return new Promise((resolve, reject) => {
@@ -82,7 +102,7 @@ export function get (url, params) {
       })
       .then(res => {
         // resolve(res.data)
-        resolve(res)
+        resolve(res.data)
       })
       .catch(err => {
         // reject(err.data)

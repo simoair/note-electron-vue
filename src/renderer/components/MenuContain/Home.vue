@@ -32,7 +32,7 @@
 <script>
 
 export default {
-  name: 'History'
+  name: 'Home'
 }
 </script>
 

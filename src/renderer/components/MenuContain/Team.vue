@@ -1,41 +1,34 @@
 <template>
   <div class="team">
         <ul class="label">
-            <li class="active">
+            <li v-for ="item in teamList()" :key ="item.id"  class ="noread" @dblclick="dblclick(item)">
                 <img class="portrait" src="../../assets/img/icon/head.png" alt="">
-                <div class="team-name">simoair有效协作</div>
-                <p class="team-introduce">
-                    我们会定期对 W3School 的 CSS 参考手册进行浏览器测试。CSS3 选择器
+                <div class="team-name">{{item.name}}</div>
+                <p class="team-introduce">{{item.info}}
                 </p>
-            </li>
-            <li class="noread">
-                <img class="portrait" src="../../assets/img/icon/head.png" alt="">
-                <div class="team-name">simoair有效协作</div>
-                <p class="team-introduce">
-                    我们会定期
-                </p>
-            </li>
-            <li class="">
-                <img class="portrait" src="../../assets/img/icon/head.png" alt="">
-                <div class="team-name">simoair有效协作</div>
-                <p class="team-introduce">
-                    我们会定期对 W3Scho
-                </p>
-            </li>
-            <li class="">
-                <img class="portrait" src="../../assets/img/icon/head.png" alt="">
-            </li>
-            <li class="">
-                <img class="portrait" src="../../assets/img/icon/head.png" alt="">
             </li>
         </ul>
     </div>
 </template>
 
 <script>
-
+import {dblEvent} from './util.js'
 export default {
-  name: 'Team'
+  name: 'Team',
+  data: function () {
+    return {
+
+    }
+  },
+  methods: {
+    teamList () {
+      return this.$store.getters['team/getTeamList']
+    },
+    dblclick (data) {
+      // 判断标签栏是否已存在
+      dblEvent.bind(this)('team', data)
+    }
+  }
 }
 </script>
 
@@ -54,7 +47,7 @@ export default {
           height: 60px;
           margin-bottom: 2px;
           position: relative;
-          opacity: .7;
+          opacity: .9;
           cursor: default;
           &.active{
               background: #252525;
@@ -83,7 +76,8 @@ export default {
               color: #777;
               position: absolute;
               top: 25px;
-              left: 35px;font-size: 11px;
+              left: 35px;
+              font-size: 11px;
               line-height: 16px;
               overflow: hidden;
               text-overflow: ellipsis;

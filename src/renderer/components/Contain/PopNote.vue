@@ -1,33 +1,78 @@
 <template>
   <div class="pop-note">
-    <Tabs :data="{menu}">
-        <template slot-scope="">
-          <List :data="{menu}">
-            <template slot-scope="">
-                <Row class="noread at">
-                    <img class="img" src="../../assets/img/icon/head.png" alt="">
-                    <strong class="name">312</strong>
-                    <time>2月8日</time>
-                    <p class="text">分享志炫的新歌《妈，我回来啦》发布了，快来抢先听</p>
-                </Row>
-            </template>
-          </List>
-          <List :data="{menu}">
-            <template slot-scope="">
-                <Row class="noread at">3321</Row>
-            </template>
-          </List>
-        </template>
-    </Tabs>
+    <ul class="menu">
+      <li
+      v-for="(item,index) in menu" 
+      :key="index"
+      :class="{
+        'active ': current_menu_code == item.code, 
+        'noread': item.noRead
+      }"
+      @click="menuClick(item.code)">
+        {{item.name}}
+      </li>
+    </ul>
+    <div class="main">
+      <ul v-show="current_menu_code==='at'">
+        <li 
+          v-for="(item,index) in menu" 
+          :key="index"
+          class="at">
+            <img class="img" src="../../assets/img/icon/head.png" alt="">
+            <strong class="name">312</strong>
+            <time>2月8日</time>
+            <p class="text">分享志炫的新歌《妈，我回来啦》发布了，快来抢先听</p>
+        </li>
+        <li 
+          v-for="(item,index) in menu" 
+          :key="index"
+          class="at">
+            <img class="img" src="../../assets/img/icon/head.png" alt="">
+            <strong class="name">312</strong>
+            <time>2月8日</time>
+            <p class="text">分享志炫的新歌《妈，我回来啦》发布了，快来抢先听</p>
+        </li>
+        <li 
+          v-for="(item,index) in menu" 
+          :key="index"
+          class="at">
+            <img class="img" src="../../assets/img/icon/head.png" alt="">
+            <strong class="name">312</strong>
+            <time>2月8日</time>
+            <p class="text">分享志炫的新歌《妈，我回来啦》发布了，快来抢先听</p>
+        </li>
+      </ul>
+      <ul v-show="current_menu_code==='message'">
+        <li 
+          v-for="(item,index) in menu" 
+          :key="index"
+          class="at">
+            <img class="img" src="../../assets/img/icon/head.png" alt="">
+            <strong class="name">312</strong>
+            <time>2月8日</time>
+            <p class="text">分享志炫的新歌《妈抢先听</p>
+        </li>
+      </ul>
+      <ul v-show="current_menu_code==='note'">
+        <li 
+          v-for="(item,index) in menu" 
+          :key="index"
+          class="at">
+            <img class="img" src="../../assets/img/icon/head.png" alt="">
+            <strong class="name">312</strong>
+            <time>2月8日</time>
+            <p class="text">分享志歌《妈，我回来啦》发布了，快来抢先听</p>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
-import Tabs from './../Public/Tabs'
 import List from './../Public/List'
 export default {
   name: 'Pop-note',
-  components: {Tabs, List},
+  components: {List},
   data: function () {
     return {
       current_menu_code: 'at',
@@ -46,6 +91,11 @@ export default {
           noRead: true
         }
       ]
+    }
+  },
+  methods: {
+    menuClick (code) {
+      this.current_menu_code = code
     }
   }
 }
@@ -67,6 +117,9 @@ export default {
   -moz-user-select: none;
   -khtml-user-select: none;
   user-select: none;
+  display: flex;
+  flex-flow: column;
+  align-items: stretch;
 
   &:before{
     content:'';
@@ -80,57 +133,100 @@ export default {
     border-bottom:10px solid #333;     
 
   }
-  .at{
-        width: 100%;
-        height: 50px;
-        margin-bottom: 2px;
-        cursor: default;
-        position: relative;
-        &:hover{
-            opacity: 1;
-            background: #383838;
-        }
-        &.noread:before{
-            content: '';
-            width: 5px;
-            height: 5px;
+  >ul.menu{
+    width: 100%;
+    display: flex;
+    padding: 10px;
+    li{
+      height: 20px;
+      flex: 1;
+      text-align: center;
+      box-sizing: content-box;
+      color: #999;
+      position: relative;
+      cursor: default;
+      &.active{
+        color: #ebebeb;
+        border-bottom:3px solid #666;
+      }
+      &:hover{
+        color: #ebebeb;
+      }
+      &.noread:before{
+          content: '';
+          width: 5px;
+          height: 5px;
+          position: absolute;
+          top: -2px;
+          right: 15px;
+          border-radius: 10px;
+          background: red;
+      }
+
+    }
+  }
+  .main{
+    width: 100%;
+    flex: 1 1 auto;
+    position: relative;
+    overflow: auto;
+    >ul{
+        li.at{
+          width: 100%;
+          height: 50px;
+          margin-bottom: 2px;
+          cursor: default;
+          position: relative;
+          &:hover{
+              opacity: 1;
+              background: #383838;
+          }
+          &.noread:before{
+              content: '';
+              width: 5px;
+              height: 5px;
+              position: absolute;
+              top: 5px;
+              right: 10px;
+              border-radius: 10px;
+              background: red;
+
+          }
+          img{
+              width: 20px;
+              height: 20px;
+              position: absolute;
+              top: 10px;
+              left: 10px;
+          }
+          .name{
+              position: absolute;
+              top: 5px;
+              left: 35px;
+              color: #ebebeb;
+          }
+          time{
             position: absolute;
             top: 5px;
             right: 10px;
-            border-radius: 10px;
-            background: red;
-
-        }
-        img{
-            width: 20px;
-            height: 20px;
-            position: absolute;
-            top: 10px;
-            left: 10px;
-        }
-        .name{
-            position: absolute;
-            top: 5px;
-            left: 35px;
-            color: #ebebeb;
-        }
-        time{
-          position: absolute;
-          top: 5px;
-          right: 20px;
-          font-size: 11px;
-        }
-        .text{
-            width: 80%;
-            height: 16px;
-            position: absolute;
-            top: 25px;
-            left: 35px;
-            color: #999;
-            overflow: hidden;
-            text-overflow:ellipsis;
-            white-space: nowrap;
+            font-size: 10px;
+            color:#666;
+          }
+          .text{
+              width: 80%;
+              height: 16px;
+              position: absolute;
+              top: 25px;
+              left: 35px;
+              color: #999;
+              overflow: hidden;
+              text-overflow:ellipsis;
+              white-space: nowrap;
+          }
         }
     }
+
+  }
+  
 }
 </style>

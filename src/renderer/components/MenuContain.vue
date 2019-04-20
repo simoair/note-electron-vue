@@ -30,13 +30,11 @@ export default {
   components: { History, Home, Team, Folder },
   data: function () {
     return {
-      menuCode: 'history'
+
     }
   },
   mounted () {
-    this.$nextTick(() => {
-      this.menuCode = this.$store.getters['menu/get_current_menu_code']
-    })
+
   },
   methods: {
     current_menu_code () {

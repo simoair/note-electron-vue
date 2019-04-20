@@ -53,23 +53,16 @@
         </ul>
       </div>
       <div class="edit">
-        <div class="page" contenteditable="true">
-          <span class="label hide">H&MHelvetica</span>
-          <p>
-          再见总是 侧侧卧位<span class="label show">asd</span>额嗡无无无付 <span class="underline">21312312</span> 无无无无as的撒打算撒旦撒旦撒无无无无无付多所是参数DVD无付多所是参数DVD
-          </p>
-          <p>
-          再见总是 <span class="line-through">regwe </span>无无无无付
-          多所是参数DVD <span class="line-through">24</span> 无无无无无付多所 <span class="underline">额嗡嗡嗡无</span>是参数DVD无付多所是参数DVD
-          </p>
+        <div ref="page" class="page" contenteditable="true" @keyup.ctrl.83="save()"> <!-- 此处无法使用less预编译 -->
+          
         </div>
       </div>
       <div class="control-bottom">
             <img src="../../assets/img/icon/warn-a.png" alt="">
             <img src="../../assets/img/icon/problem.png" alt="">
             <span>修改时间： 2019-01-02 09:13:21</span>
-            <span>字数： 1097 字</span>
-            <span>文件： 29.8 K</span>
+            <span>字数： {{dataNote.length}} 字</span>
+            <span>文件： {{dataNote.size}} K</span>
             <span class="fl">位置： C:\Users\Administrator\Desktop\快捷图标</span>
 
       </div>
@@ -80,8 +73,14 @@
 
 export default {
   name: 'note',
+  props: ['id'],
   data: function () {
     return {
+      dataNote: {
+        length: 0,
+        size: 0,
+        data: {}
+      },
       dragArea: {
         dragFlag: false,
         eventPositionPre: {
@@ -96,8 +95,29 @@ export default {
     }
   },
   components: { },
+  created () {
+    this.getNote()
+  },
   methods: {
     labelClick () {
+    },
+    getNote () {
+      this.$server.Note.personNotedetail({id: this.id}).then(ret => {
+        this.$refs.page.innerHTML = ret.data.note_contents[0].content
+        this.dataNote.data = ret.data
+        this.updateNoteInfo()
+      })
+    },
+    save () {
+      const self = this
+      this.dataNote.data.note_contents[0].content = this.$refs.page.innerHTML
+      this.$server.Note.personNotesave(this.dataNote.data).then(ret => {
+        self.updateNoteInfo()
+      })
+    },
+    updateNoteInfo () {
+      this.dataNote.size = new Blob([this.$refs.page.innerHTML]).size
+      this.dataNote.length = this.$refs.page.outerText.length
     },
     dragDown () {
       this.dragArea.dragFlag = true
@@ -144,6 +164,11 @@ export default {
         }
       }
     }
+  },
+  watch: {
+    id (val, oldVal) {
+      this.getNote()
+    }
   }
 }
 </script>
@@ -153,7 +178,6 @@ export default {
     width: 100%;
     height: 100%;
     position: absolute;
-    cursor: move;
       >.control-area{
         width: 50px;
         height: 250px;

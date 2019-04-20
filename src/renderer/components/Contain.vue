@@ -1,6 +1,5 @@
 <template>
   <div class="contain theme-deep">
-    <!-- {{aaa}} -->
       <div class="top">
         <ul class="label" ref = "menuLabel">
           <li 
@@ -14,18 +13,18 @@
             {{item.name}}
           </li>
         </ul>
-        <div class="menu">
-           <img class="img" src="../assets/img/icon/message.png" alt="">
-           <img class="img" src="../assets/img/icon/min.png" alt="">
-           <img class="img" src="../assets/img/icon/max.png" alt="">
-           <img class="img" src="../assets/img/icon/close.png" alt="">
+        <div class="menu noread">
+           <img @click="updatePopNoteFlag()" src="../assets/img/icon/message.png" alt="">
+           <img  src="../assets/img/icon/min.png" alt="">
+           <img  src="../assets/img/icon/max.png" alt="">
+           <img  src="../assets/img/icon/close.png" alt="">
         </div>
       </div>
       <div class="main">
         <router-view></router-view>
       </div>
       <Controlpage ref="controlpage" :controlpageStyle="controlpageStyle"/>
-      <!-- <PopNote/> -->
+      <PopNote v-show="popNoteFlag"/>
   </div>
 </template>
 
@@ -42,32 +41,36 @@ export default {
         index: 0,
         list: []
       },
-      // aaa: this.$store.getters['panel/getMenu'].index,
-      menuIndex: 0,
       controlpageStyle: {
         left: 0,
         top: 0,
         opacity: 1,
         display: 'none'
-      }
+      },
+      popNoteFlag: false
     }
+  },
+  created () {
+
   },
   mounted () {
     this.$nextTick(() => {
       this.menu = this.$store.getters['panel/getMenu']
+      this.turnView()
     })
   },
   computed: {
+    listenMenu () {
+      return this.$store.getters['panel/getMenu']
+    }
   },
   methods: {
     labelClose (index) {
       this.$store.commit('panel/close', index)
-      this.$router.push(this.menu.list[this.menu.index].url)
     },
     labelClick (event, index) {
       if (event.button === 0) { // 左键
         this.$store.commit('panel/turnTo', index)
-        this.$router.push(this.menu.list[this.menu.index].url)
         Object.assign(this.controlpageStyle, this.controlpageStyle, {
           opacity: 0,
           display: 'none'
@@ -81,6 +84,20 @@ export default {
           display: 'block'
         })
       }
+    },
+    turnView () {
+      this.$router.push(this.menu.list[this.menu.index] ? this.menu.list[this.menu.index].url : '/')
+    },
+    updatePopNoteFlag () {
+      this.popNoteFlag = !this.popNoteFlag
+    }
+  },
+  watch: {
+    listenMenu: {
+      handler: function (val, oldVal) {
+        this.turnView()
+      },
+      deep: true // 深度
     }
   }
 }
@@ -104,8 +121,9 @@ export default {
         -moz-user-select: none;
         -khtml-user-select: none;
         user-select: none;
-        -webkit-app-region:drag;
+        // -webkit-app-region:drag;
         ul.label{
+            width: calc(100% - 100px);
             -webkit-app-region:no-drag;
             li{
               height: 24px;
@@ -186,11 +204,26 @@ export default {
           right: 0;
           vertical-align: middle;
           line-height: 220%;
+          &.noread:before{
+              content: '';
+              width: 5px;
+              height: 5px;
+              top: 0px;
+              left: 12px;
+              position: absolute;
+              border-radius: 10px;
+              background: red;
+          }
           img{
               width: 15px;
               height: 15px;
               margin-right: 5px;
               cursor: pointer;
+              position: relative;
+              opacity: .8;
+              &:hover{
+                opacity: 1;
+              }
           }
         }
       }

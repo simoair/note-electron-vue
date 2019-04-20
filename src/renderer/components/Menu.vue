@@ -68,6 +68,16 @@ export default {
         type: 'menu/set_current_menu',
         code: code
       })
+      switch (code) {
+        case 'team':
+          this.$server.Team.list({userId: 1})
+          break
+        case 'folder':
+          if (!this.$store.getters['note/getPersonFalg']) {
+            this.$server.Note.personNoteList({userId: 1})
+          }
+          break
+      }
     },
     current_menu_code () {
       return this.$store.getters['menu/get_current_menu_code']

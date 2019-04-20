@@ -2,7 +2,7 @@ const menu = {
   // 命名空间 解决modules元素重名问题
   namespaced: true,
   state: {
-    current_menu_code: 'history'
+    current_menu_code: 'home'
   },
   mutations: {
     set_current_menu (state, obj) {

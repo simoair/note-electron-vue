@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Panel from './modules/panel.js'
 import Menu from './modules/menu.js'
+import Team from './modules/team.js'
+import Note from './modules/note.js'
 
 Vue.use(Vuex)
 // 需要维护的状态
@@ -18,6 +20,8 @@ export default new Vuex.Store({
   getters,
   modules: {
     panel: Panel,
-    menu: Menu
+    menu: Menu,
+    team: Team,
+    note: Note
   }
 })

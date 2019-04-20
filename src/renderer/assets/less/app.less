@@ -16,6 +16,32 @@ body{
   ::-moz-selection{ background: #999999;}
   ::-webkit-selection{ background: #999999;}
 }
+
+::-webkit-scrollbar {  
+  width: 14px; 
+  height: 14px;
+  background: none;
+}  
+  
+::-webkit-scrollbar-track,  
+::-webkit-scrollbar-thumb {  
+  border-radius: 999px;  
+  border: 5px solid transparent;  
+}  
+  
+::-webkit-scrollbar-track {  
+  box-shadow: 1px 1px 10px rgba(187,187,187,0) inset;  
+}  
+  
+::-webkit-scrollbar-thumb {  
+  min-height: 20px;  
+  background-clip: content-box; 
+  box-shadow: 0 0 0 5px rgba(0,0,0,.4) inset; 
+}  
+  
+::-webkit-scrollbar-corner {  
+  background: transparent;  
+} 
 .bodybox{
     width: 100%;
     height: 100%;
@@ -40,4 +66,16 @@ input,textarea{
 .line-through{
   color: #666;
   text-decoration:line-through #FF6666;
+}
+
+span.label.show{
+  width: auto;
+  height: auto;
+  padding: 0 3px;
+  border-radius: 4px;
+  background: rgba(255,102,102, .1);
+  color: rgba(255,102,102, .7);
+  margin:0 5px;
+  padding: 0 5px;
+  cursor: pointer;
 }

@@ -1,6 +1,15 @@
 <template>
   <div class="folder">
       <ul>
+          <li
+          v-for="(item) in getNoteData().currentItem.children" 
+          :key="item.id"
+          @dblclick="dblclick(item)">
+            <img class="" code="folder" :src="`../../static/img/icon/${item.fileType == 0 ? 'team-folder' : 'file'}.png`" alt="">
+            <p>{{item.noteName}}</p>
+          </li>
+      </ul>
+      <!-- <ul>
           <li>
             <img class="" code="folder" src="../../assets/img/icon/team-folder.png" alt="">
             <p>设计图.pdf</p>
@@ -17,14 +26,41 @@
             <img class="" code="folder" src="../../assets/img/icon/team-folder.png" alt="">
             <p>如何整理项目文件.pdf</p>
           </li>
-      </ul>
+      </ul> -->
   </div>
 </template>
 
 <script>
 
 export default {
-  name: 'Team'
+  name: 'Team',
+  methods: {
+    dblclick (data) {
+      if (data.fileType === 0) { // 文件夹
+        this.$store.dispatch('note/updatePersonCurrentItem', data.id)
+      } else { // 文件
+        // 判断标签栏是否已存在
+        let isExit = false
+        this.$store.getters['panel/getMenu'].list.forEach((item, index) => {
+          if (item.code === 'note' && item.id === data.id) {
+            isExit = true
+            this.$store.dispatch('panel/turnTo', index)
+            return false
+          }
+        })
+        if (!isExit) {
+          this.$store.dispatch('panel/add', {
+            code: 'note',
+            id: data.id,
+            noteName: data.noteName.length <= 5 ? data.noteName : `${data.noteName.substring(0, 5)}...`
+          })
+        }
+      }
+    },
+    getNoteData () {
+      return this.$store.getters['note/getPersonData']
+    }
+  }
 }
 </script>
 

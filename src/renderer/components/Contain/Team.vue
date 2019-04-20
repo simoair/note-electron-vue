@@ -78,6 +78,7 @@
 import Menu from './../Public/Menu'
 export default {
   name: 'team',
+  props: ['id'],
   components: { Menu },
   data: function () {
     return {
