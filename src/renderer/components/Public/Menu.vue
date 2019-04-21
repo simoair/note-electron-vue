@@ -19,6 +19,12 @@ export default {
   name: 'List',
   props: {
     data: Object
+  },
+  methods: {
+    menuClick (code) {
+      this.data.current_menu_code = code
+      this.$emit('menuEvent', code)
+    }
   }
 }
 </script>

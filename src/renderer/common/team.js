@@ -7,5 +7,11 @@ export default {
       .then((data) => {
         store.dispatch('team/updateTeamList', data.data[0].teams)
       })
+  },
+  detail (params) {
+    get(api.team.detail(), params)
+      .then((data) => {
+        store.dispatch('team/addTeamMap', data.data)
+      })
   }
 }

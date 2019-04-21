@@ -11,8 +11,11 @@ export default {
     host () {
       return 'team/v1'
     },
-    list (data) {
+    list () {
       return this.host() + `/list`
+    },
+    detail () {
+      return this.host() + `/detail`
     }
   },
   note: {

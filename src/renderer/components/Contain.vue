@@ -121,7 +121,7 @@ export default {
         -moz-user-select: none;
         -khtml-user-select: none;
         user-select: none;
-        // -webkit-app-region:drag;
+        -webkit-app-region:drag;
         ul.label{
             width: calc(100% - 100px);
             -webkit-app-region:no-drag;

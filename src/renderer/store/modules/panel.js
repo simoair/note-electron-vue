@@ -98,6 +98,7 @@ const panel = {
           }
           break
       }
+      console.log('添加标签', item)
       commit('add', item)
     }
   },
