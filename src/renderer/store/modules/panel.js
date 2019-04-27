@@ -84,7 +84,7 @@ const panel = {
             name: obj.noteName,
             code: 'note',
             icon_code: 'txt',
-            url: `/note?id=${obj.id}`,
+            url: `/note?id=${obj.id}&code=${obj.code}`, // code: team person
             id: obj.id
           }
           break
@@ -98,7 +98,6 @@ const panel = {
           }
           break
       }
-      console.log('添加标签', item)
       commit('add', item)
     }
   },

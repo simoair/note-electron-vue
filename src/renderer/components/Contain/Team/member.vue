@@ -1,105 +1,103 @@
 <template>
-    <div class="folder">
-        <div class="folder-head">
-        <!-- <div class="head-menu">
-            <img src="../../assets/img/icon/turnleft.png" alt="">
-        </div> -->
-            <ul class="head-nav">
-            <li>全部</li>
-            <li>我的网盘</li>
-            <li>最新</li>
-            <li>新建文件夹</li>
+    <ul class="member">
+        <li
+        v-for="(item,index) in memberData()[this.props.teamId]?memberData()[this.props.teamId].user.list:[]" 
+        :key="index">
+            <img class="head" src="../../../assets/img/img/headImg.png" alt="">
+            <div class="name">
+                {{item['users.to_user_team.username']}}
+                <span class="red" v-if="item.userId===item['users.id']">创建人</span>
+                <span class="blue" v-if="item.userId!==item['users.id']">成员</span>
+            </div>
+            <div class="time">{{SimpleDateFormat(item['users.to_user_team.createdAt'])}}</div>
+            <ul class="operate">
+                <li class="red">删除</li>
             </ul>
-        </div>
-        <ul class="material-box">
-        <li>
-            <img class="" code="folder" src="../../../assets/img/icon/team-folder.png" alt="">
-            <p>设计图</p>
         </li>
-        </ul>
-    </div>
+    </ul>
 </template>
 
 <script>
 
+import { SimpleDateFormat } from './../../../common/util/date.js'
 export default {
   name: 'log',
-  props: ['teamId']
+  props: ['props'],
+  methods: {
+    memberData () {
+      return this.$store.getters['team/getTeamMap']
+    },
+    SimpleDateFormat (data) {
+      return SimpleDateFormat(data)
+    }
+  }
 }
 </script>
 
 <style lang="less" rel="stylesheet/less" scoped>
 @import '../../../assets/less/theme.less';  /*引入公共样式*/
-.folder{
+ul.member{
     width: 100%;
     height: 100%;
-    >.folder-head{
-    width: 100%;
-    height: 30px;
-    border-bottom:1px dashed #333;
-    box-sizing: border;
-    >.head-menu{
-        img{
-        width: 16px;
-        height: 16px;
-        padding: 6px;
-        box-sizing: content-box;
-        float: left;
-        }
-    }
-    >ul.head-nav{
-        height: 30px;
-        line-height: 30px;
-        color: #888;
-        font-size: 11px;
-        margin-left: 10px;
-        li{
-        padding: 0 8px 0 2px;
-        float: left;
-        cursor: pointer;
-        position: relative;
-        &:hover{
-            color: #bbb;
-        }
-        &::before{
-            content: '›';
-            font-size: 16px;
-            position: absolute;
-            right: 1px;
-        }
-        }
-    }
-    }
-    >ul.material-box{
-    width: 100%;
-    height:calc( 100% - 30px);
-    padding-top: 20px;
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    user-select: none;
+    padding: 20px 10px;
     >li{
-        width: 90px;
-        float: left;
-        margin: 10px 5px 0 5px;
-        cursor: pointer;
-        opacity: .9;
+        position: relative;
+        margin-bottom: 10px;
+        padding: 5px 10px;
+        border-radius: 2px;
+        background: #282828;
+        cursor: default;
         &:hover{
-        opacity: 1;
+            background: #333333;
+            >ul.operate{
+                display: block;
+            }
         }
-        img{
-        width: 60%;
-        height: 40px;
-        margin: 0 auto;
-        display: inherit;
+        >ul.operate{
+            position: absolute;
+            top: 18px;
+            right: 20px;
+            display: none;
+          >li{
+              padding: 0 5px;
+              border-radius: 2px;
+              cursor: pointer;
+              &.red{
+                  color: #FF6666;
+              }
+          }
         }
-        p{
-        width: 100%;
-        height: 30px;
-        line-height: 14px;
-        text-align: center;
-        margin-top: 5px;
+        img.head{
+            width: 40px;
+            height: 40px;
+            border-radius: 100px;
         }
-    }
+        .name{
+            position: absolute;
+            top: 10px;
+            left: 60px;
+            font-size: 16px;
+            span{
+                padding: 2px 5px;
+                border-radius: 2px;
+                margin-left: 10px;
+                font-size: 12px;
+                &.red{
+                  color: #FF6666;
+                  background: rgba(255,102,102, .3);
+                }
+                &.blue{
+                  color: #66CCCC;
+                  background: rgba(102,204,204, .3);
+                }
+            }
+        }
+        .time{
+            position: absolute;
+            left: 220px;
+            top: 15px;
+            color:#777;
+        }
     }
 }
 </style>

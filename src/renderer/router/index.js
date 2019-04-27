@@ -25,7 +25,7 @@ export default new Router({
   {
     path: '/note',
     component: Note,
-    props: (route) => ({ id: route.query.id })
+    props: (route) => ({ id: route.query.id, type: route.query.type })
   },
   {
     path: '/team',

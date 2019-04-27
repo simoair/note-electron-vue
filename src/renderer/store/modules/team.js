@@ -12,8 +12,11 @@ const team = {
     addTeamMap (state, obj) {
       let item = {}
       item[obj.id] = obj// 解决对象属性变化 vue watch监听不到问题
+      item[obj.id].note.currentItem = obj.note.map['0']
       state.teamMap = Object.assign({}, state.teamMap, item)
-      console.log(state.teamMap)
+    },
+    updateCurrentItem (state, obj) {
+      state.teamMap[obj.teamId].note.currentItem = state.teamMap[obj.teamId].note.map[obj.noteId]
     }
   },
   actions: {
@@ -22,6 +25,9 @@ const team = {
     },
     addTeamMap ({ commit }, obj) {
       commit('addTeamMap', obj)
+    },
+    updateCurrentItem ({ commit }, obj) {
+      commit('updateCurrentItem', obj)
     }
   },
   getters: {

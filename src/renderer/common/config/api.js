@@ -30,6 +30,12 @@ export default {
     },
     save () {
       return this.host() + `/save`
+    },
+    update () {
+      return this.host() + `/save`
+    },
+    delete () {
+      return this.host() + `/one`
     }
   }
 }

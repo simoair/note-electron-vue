@@ -11,6 +11,9 @@ import 'iview/dist/styles/iview.css'
 // 加载api文件
 import server from './common/index'
 import fontAwesome from 'font-awesome/css/font-awesome.css' // 字体图标
+import toast from './my-iview/Toast'// 自定义插件
+
+Vue.prototype.$toast = toast
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 // Vue.http = Vue.prototype.$http = axios

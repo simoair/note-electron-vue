@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="bodybox theme-dark">
+  <div class="bodybox theme-dark" @click="onClick($event)">
     <Menu/>
     <MenuContain/>
     <Contain/>
@@ -11,9 +11,19 @@
 import Menu from './components/Menu'
 import MenuContain from './components/MenuContain'
 import Contain from './components/Contain'
+require('../../static/js/RongIMLib-2.4.0.js')
+require('../../static/js/protobuf-2.3.4.min.js')
+require('../../static/js/RongEmoji-2.2.7.js')
 export default {
   name: 'app',
-  components: { Menu, MenuContain, Contain }
+  components: { Menu, MenuContain, Contain },
+  created () {
+  },
+  methods: {
+    onClick ($event) {
+      this.$store.dispatch('public/updatePop', false)
+    }
+  }
 }
 </script>
 

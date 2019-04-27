@@ -93,6 +93,28 @@ export function put (url, params) {
         reject(err, 0)
       })
   })
+}// 发送请求
+export function Delete (url, params) {
+  return new Promise((resolve, reject) => {
+    axios
+      .delete(url, {
+        data: params
+      })
+      .then(
+        res => {
+          resolve(res.data)
+        },
+        err => {
+          // reject(err.data)
+
+          reject(err, 0)
+        }
+      )
+      .catch(err => {
+        // reject(err.data)
+        reject(err, 0)
+      })
+  })
 }
 export function get (url, params) {
   return new Promise((resolve, reject) => {

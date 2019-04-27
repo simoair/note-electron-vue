@@ -9,14 +9,6 @@ const note = {
       map: {},
       currentItem: {}
     },
-    team: {
-      1: {
-        list: [],
-        tree: [],
-        map: {},
-        currentItem: {}
-      }
-    },
     noteMap: {}
   },
   mutations: {
@@ -27,7 +19,16 @@ const note = {
       state.person.map = obj.map
     },
     updatePersonCurrentItem (state, noteId) {
-      state.person.currentItem = state.person.map[noteId]
+      if (noteId === undefined) {
+        if (JSON.stringify(state.person.currentItem) === '{}') {
+          noteId = 0
+        } else {
+          noteId = state.person.currentItem.id
+        }
+        state.person.currentItem = state.person.map[noteId]
+      } else {
+        state.person.currentItem = state.person.map[noteId]
+      }
     }
   },
   actions: {
@@ -35,7 +36,6 @@ const note = {
       commit('updatePersonData', obj)
     },
     updatePersonCurrentItem ({ commit }, noteId) {
-      noteId = noteId || 0
       commit('updatePersonCurrentItem', noteId)
     }
   },

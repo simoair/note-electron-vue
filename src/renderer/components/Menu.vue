@@ -74,7 +74,7 @@ export default {
           break
         case 'folder':
           if (!this.$store.getters['note/getPersonFalg']) {
-            this.$server.Note.personNoteList({userId: 1})
+            this.$server.Note.personNoteList()
           }
           break
       }

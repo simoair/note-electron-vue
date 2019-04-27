@@ -7,7 +7,7 @@
             :key="index"
             :data-url = "item.url"
             v-bind:class="{'active':menu.index == index}"  
-            @click="labelClick($event, index)">
+            @mouseup="labelClick($event, index)">
             <div class="close" @click.stop="labelClose(index)"></div>
             <img :src="`../static/img/icon/${item.icon_code}.png`" alt="">
             {{item.name}}
@@ -78,7 +78,7 @@ export default {
       } else { // 右键
         let controlpage = this.$refs.controlpage
         Object.assign(this.controlpageStyle, this.controlpageStyle, {
-          left: `${event.pageX - controlpage.$parent.$el.offsetLeft}px`,
+          left: `${event.pageX}px`,
           top: `${event.pageY - controlpage.$parent.$el.offsetTop}px`,
           opacity: 1,
           display: 'block'
@@ -121,10 +121,12 @@ export default {
         -moz-user-select: none;
         -khtml-user-select: none;
         user-select: none;
-        -webkit-app-region:drag;
         ul.label{
             width: calc(100% - 100px);
+            height: 30px;
+            position: absolute;
             -webkit-app-region:no-drag;
+            -webkit-app-region:drag;
             li{
               height: 24px;
               max-width: 100px;

@@ -55,7 +55,7 @@ export default {
     width: 220px;
     height: 100%;
     float: left;
-    padding: 10px 10px;
+    padding: 10px 0;
     border-right: 1px solid #222;
     color: #BBB;
     -moz-user-select: none;
@@ -68,6 +68,7 @@ export default {
     >.head{
         width: 100%;
         flex:0 1 30px;
+        padding: 0 10px;
         -webkit-app-region:drag;
         >.search{
            color: #999999;
@@ -86,12 +87,12 @@ export default {
         flex:1 1 auto; 
     }
     .advertising{
-        width: 100%;
         flex:0 1 80px;
         border-radius: 3px;
         overflow: hidden;
         background: #333;
         position: relative;
+        margin: 0 10px;
         img{
             width: 100%;
             height: 100%;

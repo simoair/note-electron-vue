@@ -4,6 +4,7 @@ import Panel from './modules/panel.js'
 import Menu from './modules/menu.js'
 import Team from './modules/team.js'
 import Note from './modules/note.js'
+import Public from './modules/public.js'
 
 Vue.use(Vuex)
 // 需要维护的状态
@@ -19,6 +20,7 @@ export default new Vuex.Store({
   actions,
   getters,
   modules: {
+    public: Public,
     panel: Panel,
     menu: Menu,
     team: Team,

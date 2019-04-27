@@ -73,7 +73,7 @@
 
 export default {
   name: 'note',
-  props: ['id'],
+  props: ['id', 'type'],
   data: function () {
     return {
       dataNote: {
@@ -102,7 +102,7 @@ export default {
     labelClick () {
     },
     getNote () {
-      this.$server.Note.personNotedetail({id: this.id}).then(ret => {
+      this.$server.Note.notedetail({id: this.id}).then(ret => {
         this.$refs.page.innerHTML = ret.data.note_contents[0].content
         this.dataNote.data = ret.data
         this.updateNoteInfo()
@@ -111,7 +111,7 @@ export default {
     save () {
       const self = this
       this.dataNote.data.note_contents[0].content = this.$refs.page.innerHTML
-      this.$server.Note.personNotesave(this.dataNote.data).then(ret => {
+      this.$server.Note.notesave(this.dataNote.data).then(ret => {
         self.updateNoteInfo()
       })
     },
